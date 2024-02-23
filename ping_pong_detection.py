@@ -49,7 +49,7 @@ while True:
     frame_center_x = frame.shape[1] / 2
     frame_center_y = frame.shape[0] / 2
     
-    print(detections.xyxy)
+    print(detections.box_area)
     #Assume a single detected object for simplicity; adjust as needed for multiple detections
     if detections:
         for detection in detections:
@@ -60,11 +60,11 @@ while True:
             # Horizontal movement
             #testing camera was mirrored while testing KEEPNOTE
             if cx > frame_center_x and abs(cx-frame_center_x) > horizontal_threshold:  # Adjust horizontal_threshold
-                command = "right"
-                print("GO RIGHT")
-            elif cx < frame_center_x and abs(cx-frame_center_x) > horizontal_threshold:
                 command = "left"
-                print("GO LEFT")
+                print("L")
+            elif cx < frame_center_x and abs(cx-frame_center_x) > horizontal_threshold:
+                command = "right"
+                print("R")
             else:
                 command = "stop"  # No significant horizontal movement needed
                 print("STOP AND GO FORWARD")
@@ -72,10 +72,10 @@ while True:
             # Vertical movement
             #REMOVE AND REPLACE WITH LOGIC FOR BOX AREA GETTING BIGGER AS ROBOT APPROACHES
             # Assuming moving forward is decreasing y (up in the frame) and backward is increasing y
-            if cy < frame_center_y - vertical_threshold:  # Adjust vertical_threshold
-                command += " and forward"
-            elif cy > frame_center_y + vertical_threshold:
-                command += " and backward"
+            # if cy < frame_center_y - vertical_threshold:  # Adjust vertical_threshold
+            #     command += " and forward"
+            # elif cy > frame_center_y + vertical_threshold:
+            #     command += " and backward"
 
             # Send the command to the Arduino
             ser.write(f"{command}\n".encode('utf-8'))
