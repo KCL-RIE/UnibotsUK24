@@ -1,0 +1,145 @@
+const int freq = 5000;
+const int resolution = 8;
+
+// Motor A (Left Side) Control Pins
+const int motorLeftFront_Fwd = 32;
+const int motorLeftBack_Fwd = 33;
+const int motorRightFront_Fwd = 25;
+const int motorRightBack_Fwd = 26;
+
+const int motorLeftFront_Bwd = 21;
+const int motorLeftBack_Bwd = 19;
+const int motorRightFront_Bwd = 18;
+const int motorRightBack_Bwd = 5;
+
+void setup() {
+  // Initialize motor control pins as outputs
+  pinMode(motorLeftFront_Fwd, OUTPUT);
+  pinMode(motorLeftBack_Fwd, OUTPUT);
+  pinMode(motorRightFront_Fwd, OUTPUT);
+  pinMode(motorRightBack_Fwd, OUTPUT);
+
+  pinMode(motorLeftFront_Bwd, OUTPUT);
+  pinMode(motorLeftBack_Bwd, OUTPUT);
+  pinMode(motorRightFront_Bwd, OUTPUT);
+  pinMode(motorRightBack_Bwd, OUTPUT);
+
+  // Start serial communication
+  Serial.begin(9600);
+}
+
+void forward_move(int throttle){
+  analogWrite(motorLeftFront_Fwd, throttle);
+  analogWrite(motorLeftBack_Fwd, throttle);
+  analogWrite(motorRightFront_Fwd, throttle);
+  analogWrite(motorRightBack_Fwd, throttle);
+}
+
+void backward_move(int throttle){
+  analogWrite(motorLeftFront_Bwd, throttle);
+  analogWrite(motorLeftBack_Bwd, throttle);
+  analogWrite(motorRightFront_Bwd, throttle);
+  analogWrite(motorRightBack_Bwd, throttle);
+}
+
+void left_move(int throttle){
+  analogWrite(motorLeftFront_Bwd, throttle);
+  analogWrite(motorLeftBack_Fwd, throttle);
+  analogWrite(motorRightFront_Fwd, throttle);
+  analogWrite(motorRightBack_Bwd, throttle);
+}
+
+//
+void right_move(int throttle){
+  analogWrite(motorLeftFront_Fwd, throttle);
+  analogWrite(motorLeftBack_Bwd, throttle);
+  analogWrite(motorRightFront_Bwd, throttle);
+  analogWrite(motorRightBack_Fwd, throttle);
+}
+
+
+void stop_move() {
+  // Stop motors by writing a low signal (0) to both forward and backward pins for each motor
+  analogWrite(motorLeftFront_Fwd, 0);
+  analogWrite(motorLeftBack_Fwd, 0);
+  analogWrite(motorRightFront_Fwd, 0);
+  analogWrite(motorRightBack_Fwd, 0);
+
+  analogWrite(motorLeftFront_Bwd, 0);
+  analogWrite(motorLeftBack_Bwd, 0);
+  analogWrite(motorRightFront_Bwd, 0);
+  analogWrite(motorRightBack_Bwd, 0);
+}
+void diagonal2ndQuadrant_move(int throttle){ //135grees
+  analogWrite(motorLeftFront_Fwd, 0);
+  analogWrite(motorLeftBack_Fwd, throttle);
+  analogWrite(motorRightFront_Fwd, throttle);
+  analogWrite(motorRightBack_Fwd, 0);
+}
+
+void diagonal1stQuadrant_move(int throttle){ //45grees
+  analogWrite(motorLeftFront_Fwd, throttle);
+  analogWrite(motorLeftBack_Fwd, 0);
+  analogWrite(motorRightFront_Fwd, 0);
+  analogWrite(motorRightBack_Fwd, throttle);
+}
+
+void diagonal3rdQuadrant_move(int throttle){ //225grees
+  analogWrite(motorLeftFront_Bwd, throttle);
+  analogWrite(motorLeftBack_Fwd, 0);
+  analogWrite(motorRightFront_Fwd, 0);
+  analogWrite(motorRightBack_Bwd, throttle);
+}
+
+void diagonal4thQuadrant_move(int throttle){ //315grees
+  analogWrite(motorLeftFront_Fwd, 0);
+  analogWrite(motorLeftBack_Bwd, throttle);
+  analogWrite(motorRightFront_Bwd, throttle);
+  analogWrite(motorRightBack_Fwd, 0);
+}
+
+void clockwise_move(int throttle){
+  analogWrite(motorLeftFront_Fwd, throttle);
+  analogWrite(motorLeftBack_Fwd, throttle);
+  analogWrite(motorRightFront_Bwd, throttle);
+  analogWrite(motorRightBack_Bwd, throttle);
+}
+
+void counter_clockwise_move(int throttle){
+  analogWrite(motorLeftFront_Bwd, throttle);
+  analogWrite(motorLeftBack_Bwd, throttle);
+  analogWrite(motorRightFront_Fwd, throttle);
+  analogWrite(motorRightBack_Fwd, throttle);
+}
+
+//void loop() {
+  // forward_move(127); //use
+  // backward_move(127);
+  // left_move(127); //use
+  // right_move(127); //use
+  // diagonal2ndQuadrant_move(127);
+  // diagonal1stQuadrant_move(127);
+  // diagonal3rdQuadrant_move(127);
+  // diagonal4thQuadrant_move(127);
+  // clockwise_move(127);
+  // counter_clockwise_move(127);
+  //delay(15); //dont delete this !!!!!
+//}
+void loop() {
+  if (Serial.available()) {
+    String command = Serial.readStringUntil('\n');
+    command.trim(); // Removes any whitespace
+
+    if (command.equals("forward_move")) {
+      forward_move(80);
+    } else if (command.equals("left_move")) {
+      left_move(80);
+    } else if (command.equals("right_move")) {
+      right_move(80);
+    } else if (command.equals("stop")) {
+      stop_move();
+    }
+  }
+}
+
+
