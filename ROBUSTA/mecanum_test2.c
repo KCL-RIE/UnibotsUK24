@@ -1,0 +1,190 @@
+// Define motor pins for left front motor
+const int leftFrontMotorPWM_enB   = 6;    // PWM pin for left front motor speed control
+const int leftFrontMotorDir1_IN4  = 37;    // Direction pin 1 for left front motor
+const int leftFrontMotorDir2_IN3  = 35;    // Direction pin 2 for left front motor
+
+// Define motor pins for left back motor
+const int leftBackMotorPWM_enA    = 9;    // PWM pin for left back motor speed control
+const int leftBackMotorDir1_IN2   = 33;    // Direction pin 1 for left back motor
+const int leftBackMotorDir2_IN1   = 31;    // Direction pin 2 for left back motor
+
+// Define motor pins for right front motor
+const int rightFrontMotorPWM_enA  = 10;    // PWM pin for right front motor speed control
+const int rightFrontMotorDir1_IN1 = 52;   // Direction pin 1 for right front motor
+const int rightFrontMotorDir2_IN2 = 50;   // Direction pin 2 for right front motor
+
+// Define motor pins for right back motor
+const int rightBackMotorPWM_enB   = 11;   // PWM pin for right back motor speed control
+const int rightBackMotorDir1_IN3  = 48;   // Direction pin 1 for right back motor
+const int rightBackMotorDir2_IN4  = 46;   // Direction pin 2 for right back motor
+
+// Define motor speeds
+const int motorSpeed = 150;   // Adjust this value for desired speed (0-255)
+
+void setup() {
+  // Initialize motor pins as outputs
+  pinMode(leftFrontMotorPWM_enB, OUTPUT);
+  pinMode(leftFrontMotorDir1_IN4, OUTPUT);
+  pinMode(leftFrontMotorDir2_IN3, OUTPUT);
+  pinMode(leftBackMotorPWM_enA, OUTPUT);
+  pinMode(leftBackMotorDir1_IN2, OUTPUT);
+  pinMode(leftBackMotorDir2_IN1, OUTPUT);
+  pinMode(rightFrontMotorPWM_enA, OUTPUT);
+  pinMode(rightFrontMotorDir1_IN1, OUTPUT);
+  pinMode(rightFrontMotorDir2_IN2, OUTPUT);
+  pinMode(rightBackMotorPWM_enB, OUTPUT);
+  pinMode(rightBackMotorDir1_IN3, OUTPUT);
+  pinMode(rightBackMotorDir2_IN4, OUTPUT);
+}
+
+void loop() {
+  moveForward();
+  delay(2000);  // Move forward for 2 seconds
+  stopMotors(); // Stop the robot
+  delay(1000);  // Pause for 1 second
+
+  moveBackward();
+  delay(2000);  // Move BACKWARD for 2 seconds
+  stopMotors(); // Stop the robot
+  delay(1000);  // Pause for 1 second
+
+  moveRight();
+  delay(2000);  // Move RIGHT for 2 seconds
+  stopMotors(); // Stop the robot
+  delay(1000);  // Pause for 1 second
+
+  moveLeft();
+  delay(2000);  // Move LEFT for 2 seconds
+  stopMotors(); // Stop the robot
+  delay(1000);  // Pause for 1 second
+
+  turnRight();
+  delay(2000);  // Turn RIGHT for 2 seconds
+  stopMotors(); // Stop the robot
+  delay(1000);  // Pause for 1 second
+
+  turnLeft();
+  delay(2000);  // Turn LEFT for 2 seconds
+  stopMotors(); // Stop the robot
+  delay(1000);  // Pause for 1 second
+}
+
+///////////////////////////////////////////////////
+//////////////// HELPER FUNCTIONS /////////////////
+///////////////////////////////////////////////////
+
+void turnRight() {
+  // Set motor directions for RIGHT movement
+  digitalWrite(leftFrontMotorDir1_IN4, LOW);
+  digitalWrite(leftFrontMotorDir2_IN3, HIGH);
+  digitalWrite(leftBackMotorDir1_IN2, LOW);
+  digitalWrite(leftBackMotorDir2_IN1, HIGH);
+  digitalWrite(rightFrontMotorDir1_IN1, HIGH);
+  digitalWrite(rightFrontMotorDir2_IN2, LOW);
+  digitalWrite(rightBackMotorDir1_IN3, HIGH);
+  digitalWrite(rightBackMotorDir2_IN4, LOW);
+  
+  // Set motor speeds
+  analogWrite(leftFrontMotorPWM_enB, motorSpeed);
+  analogWrite(leftBackMotorPWM_enA, motorSpeed);
+  analogWrite(rightFrontMotorPWM_enA, motorSpeed);
+  analogWrite(rightBackMotorPWM_enB, motorSpeed);
+}
+
+void turnLeft() {
+  // Set motor directions for LEFT movement
+  digitalWrite(leftFrontMotorDir1_IN4, HIGH);
+  digitalWrite(leftFrontMotorDir2_IN3, LOW);
+  digitalWrite(leftBackMotorDir1_IN2, HIGH);
+  digitalWrite(leftBackMotorDir2_IN1, LOW);
+  digitalWrite(rightFrontMotorDir1_IN1, LOW);
+  digitalWrite(rightFrontMotorDir2_IN2, HIGH);
+  digitalWrite(rightBackMotorDir1_IN3, LOW);
+  digitalWrite(rightBackMotorDir2_IN4, HIGH);
+  
+  // Set motor speeds
+  analogWrite(leftFrontMotorPWM_enB, motorSpeed);
+  analogWrite(leftBackMotorPWM_enA, motorSpeed);
+  analogWrite(rightFrontMotorPWM_enA, motorSpeed);
+  analogWrite(rightBackMotorPWM_enB, motorSpeed);
+}
+
+void moveForward() {
+  // Set motor directions for FORWARD movement
+  digitalWrite(leftFrontMotorDir1_IN4, LOW);
+  digitalWrite(leftFrontMotorDir2_IN3, HIGH);
+  digitalWrite(leftBackMotorDir1_IN2, LOW);
+  digitalWrite(leftBackMotorDir2_IN1, HIGH);
+  digitalWrite(rightFrontMotorDir1_IN1, LOW);
+  digitalWrite(rightFrontMotorDir2_IN2, HIGH);
+  digitalWrite(rightBackMotorDir1_IN3, LOW);
+  digitalWrite(rightBackMotorDir2_IN4, HIGH);
+
+  // Set motor speeds
+  analogWrite(leftFrontMotorPWM_enB, motorSpeed);
+  analogWrite(leftBackMotorPWM_enA, motorSpeed);
+  analogWrite(rightFrontMotorPWM_enA, motorSpeed);
+  analogWrite(rightBackMotorPWM_enB, motorSpeed);
+}
+
+void moveRight() {
+  // Set motor directions for RIGHT movement
+  digitalWrite(leftFrontMotorDir1_IN4, LOW);
+  digitalWrite(leftFrontMotorDir2_IN3, HIGH);
+  digitalWrite(leftBackMotorDir1_IN2, HIGH);
+  digitalWrite(leftBackMotorDir2_IN1, LOW);
+  digitalWrite(rightFrontMotorDir1_IN1, HIGH);
+  digitalWrite(rightFrontMotorDir2_IN2, LOW);
+  digitalWrite(rightBackMotorDir1_IN3, LOW);
+  digitalWrite(rightBackMotorDir2_IN4, HIGH);
+
+  // Set motor speeds
+  analogWrite(leftFrontMotorPWM_enB, motorSpeed);
+  analogWrite(leftBackMotorPWM_enA, motorSpeed);
+  analogWrite(rightFrontMotorPWM_enA, motorSpeed);
+  analogWrite(rightBackMotorPWM_enB, motorSpeed);
+}
+
+void moveLeft() {
+  // Set motor directions for LEFT movement
+  digitalWrite(leftFrontMotorDir1_IN4, HIGH);
+  digitalWrite(leftFrontMotorDir2_IN3, LOW);
+  digitalWrite(leftBackMotorDir1_IN2, LOW);
+  digitalWrite(leftBackMotorDir2_IN1, HIGH);
+  digitalWrite(rightFrontMotorDir1_IN1, LOW);
+  digitalWrite(rightFrontMotorDir2_IN2, HIGH);
+  digitalWrite(rightBackMotorDir1_IN3, HIGH);
+  digitalWrite(rightBackMotorDir2_IN4, LOW);
+
+  // Set motor speeds
+  analogWrite(leftFrontMotorPWM_enB, motorSpeed);
+  analogWrite(leftBackMotorPWM_enA, motorSpeed);
+  analogWrite(rightFrontMotorPWM_enA, motorSpeed);
+  analogWrite(rightBackMotorPWM_enB, motorSpeed);
+}
+
+void moveBackward() {
+  // Set motor directions for BACKWARD movement
+  digitalWrite(leftFrontMotorDir1_IN4, HIGH);
+  digitalWrite(leftFrontMotorDir2_IN3, LOW);
+  digitalWrite(leftBackMotorDir1_IN2, HIGH);
+  digitalWrite(leftBackMotorDir2_IN1, LOW);
+  digitalWrite(rightFrontMotorDir1_IN1, HIGH);
+  digitalWrite(rightFrontMotorDir2_IN2, LOW);
+  digitalWrite(rightBackMotorDir1_IN3, HIGH);
+  digitalWrite(rightBackMotorDir2_IN4, LOW);
+  
+  // Set motor speeds
+  analogWrite(leftFrontMotorPWM_enB, motorSpeed);
+  analogWrite(leftBackMotorPWM_enA, motorSpeed);
+  analogWrite(rightFrontMotorPWM_enA, motorSpeed);
+  analogWrite(rightBackMotorPWM_enB, motorSpeed);
+}
+
+void stopMotors() {
+  // Turn off all motors
+  digitalWrite(leftFrontMotorPWM_enB, LOW);
+  digitalWrite(leftBackMotorPWM_enA, LOW);
+  digitalWrite(rightFrontMotorPWM_enA, LOW);
+  digitalWrite(rightBackMotorPWM_enB, LOW);
+}
