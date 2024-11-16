@@ -25,7 +25,7 @@ NOTE: While we currently have the following equipment, these are subject to repl
 
 ![Components](images/design_V4.png)
 
-We found Design V4's propeller mechanism vastly outweighs the pros of our previous prototypes
+We found Design V4's propeller mechanism vastly outweighs the pros of our previous prototypes 
 
 ![Components](images/table1_pugh_matrix.png)
 
